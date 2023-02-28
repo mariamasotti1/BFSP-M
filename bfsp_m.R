@@ -1,5 +1,7 @@
 library(fields);library(FastGP);library(ggplot2);library(sparseMVN);library(extraDistr);library(Matrix);library(Rfast);library(zoo)
 
+range01 <- function(x){(x-min(x))/(max(x)-min(x))}
+
 ProgressBar = function(cur, total,...){
   n_equals = min(floor((cur/total) * (options("width")$width - 20)),
                  options("width")$width - 20)
