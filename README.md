@@ -7,7 +7,7 @@ The file "bfsp_m.R" contains functions, libraries to run the BFSP-M algorithm.
 
 The file "run_bfsp_m.R" generates lesion masks for example data. 
 
-### bd_bfsp()
+### bfspm()
 
 Estimates boundaries and gaussian spatial processes in each region via MCMC. 
 
