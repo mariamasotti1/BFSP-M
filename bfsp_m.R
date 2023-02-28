@@ -481,7 +481,7 @@ param0_update=function(param0,la0,gam0,i,param,value,x,y,ll,Sigma,X,N,num_lesion
 }
 
 
-bd_bfsp<-function(x,y,value,iterations=10000,burn=2000,max_lesion=10,spatial=T){
+bfspm<-function(x,y,value,iterations=10000,burn=2000,max_lesion=10,spatial=T){
   x<-range01(x)
   y<-range01(y)
   value<-scale(value)
