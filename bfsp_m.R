@@ -1,4 +1,4 @@
-library(fields);library(FastGP);library(ggplot2);library(sparseMVN);library(extraDistr);library(Matrix);library(Rfast);library(zoo)
+library(sparseMVN);library(extraDistr);library(Matrix)
 
 range01 <- function(x){(x-min(x))/(max(x)-min(x))}
 
