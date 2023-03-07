@@ -1,3 +1,4 @@
+library(sparseMVN);library(extraDistr);library(Matrix);library(fields);library(FastGP);library(zoo);library(dplyr)
 source("bfsp_m.R")
 data<-read.csv("example_data.csv") #read in data
 set.seed(1) #set random seed for reproducible results 
