@@ -484,6 +484,7 @@ param0_update=function(param0,la0,gam0,i,param,value,x,y,ll,Sigma,X,N,num_lesion
 
 
 bfspm<-function(x,y,value,iterations=10000,burn=2000,max_lesion=10,spatial=T){
+  if(burn>=iterations){stop("burn must be < iterations!")}
   x<-range01(x)
   y<-range01(y)
   value<-scale(value)
@@ -859,6 +860,7 @@ bfspm<-function(x,y,value,iterations=10000,burn=2000,max_lesion=10,spatial=T){
 post_process_bfspm<-function(results,prob=.5){
   rez<-result
   num_lesion<-rez[[6]]
+  if(length(num_lesion)<2){stop("not enough samples to post-process, must have at least 2")}
   param_keeps<-rez[[1]]
   x<-rez[[3]]
   y<-rez[[4]]
