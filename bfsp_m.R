@@ -483,10 +483,10 @@ param0_update=function(param0,la0,gam0,i,param,value,x,y,ll,Sigma,X,N,num_lesion
 }
 
 
-bfspm<-function(x,y,value,iterations=10000,burn=2000,max_lesion=10,spatial=T){
+bfspm<-function(s1,s2,value,iterations=10000,burn=2000,max_lesion=10,spatial=T){
   if(burn>=iterations){stop("burn must be < iterations!")}
-  x<-range01(x)
-  y<-range01(y)
+  x<-range01(s1)
+  y<-range01(s2)
   value<-scale(value)
   min_lesion=0
   loc<-cbind(x,y)
@@ -852,7 +852,7 @@ bfspm<-function(x,y,value,iterations=10000,burn=2000,max_lesion=10,spatial=T){
   end.time <- Sys.time()
   time.taken <- end.time - start.time
   value<-value*attr(value, 'scaled:scale') + attr(value, 'scaled:center')
-  list1<-list(param_keeps,param0_keeps[-c(1:burn),],x,y,value,num_lesion_keeps[-c(1:burn),],ll_keeps[-c(1:burn),],prior_keeps[-c(1:burn),],time.taken)
+  list1<-list(param_keeps,param0_keeps[-c(1:burn),],s1,s2,value,num_lesion_keeps[-c(1:burn),],ll_keeps[-c(1:burn),],prior_keeps[-c(1:burn),],time.taken)
   
   list1
 }
@@ -862,8 +862,9 @@ post_process_bfspm<-function(results,prob=.5){
   num_lesion<-rez[[6]]
   if(length(num_lesion)<2){stop("not enough samples to post-process, must have at least 2")}
   param_keeps<-rez[[1]]
-  x<-rez[[3]]
-  y<-rez[[4]]
+  x<-range01(rez[[3]])
+  y<-range01(rez[[4]])
+  N<-5
   value<-rez[[5]]
   centroids<-lapply(param_keeps, "[", , 1:2)
   boundary_params<-lapply(param_keeps, "[", , c(1:2,5:15))
@@ -904,7 +905,7 @@ post_process_bfspm<-function(results,prob=.5){
 
   cluster_uncert<-replace(cluster_uncert, cluster_uncert>1, 1)
   cluster<-factor(cluster,levels=unique(cluster)[order(unique(cluster))],labels=0:(length(unique(cluster))-1))
-  data<-cbind.data.frame(x,y,value,cluster,cluster_uncert)
+  data<-cbind.data.frame(x=rez[[3]],y=rez[[4]],value,cluster,cluster_uncert)
   data<-data%>%group_by(cluster)%>%mutate(average_voxel_value=mean(value))
   data
 }
